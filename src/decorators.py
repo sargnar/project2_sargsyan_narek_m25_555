@@ -1,6 +1,7 @@
 import time
 from functools import wraps
 from typing import Any, Callable
+
 import prompt
 
 
@@ -56,7 +57,9 @@ def log_time(func: Callable) -> Callable:
 def create_cacher():
     cache: dict = {}
 
-    def cache_result(key: str, value_func: Callable[[], Any] = None, invalidate: bool = False):
+    def cache_result(key: str,
+                     value_func: Callable[[], Any] = None,
+                     invalidate: bool = False):
         if invalidate:
             cache.pop(key, None)
             return None

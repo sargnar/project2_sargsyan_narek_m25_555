@@ -24,14 +24,17 @@ def _parse_condition(expr: str) -> dict:
 def print_help():
     print("\n***Управление таблицами***")
     print("Функции:")
-    print("create_table <имя_таблицы> <столбец1:тип> <столбец2:тип> .. - создать таблицу")
+    print("create_table <имя_таблицы> <столбец1:тип> "
+          "<столбец2:тип> .. - создать таблицу")
     print("list_tables - показать список всех таблиц")
     print("drop_table <имя_таблицы> - удалить таблицу")
 
     print("\n***Операции с данными***")
-    print("insert into <имя_таблицы> values (<значение1>, <значение2>, ...) - создать запись")
+    print("insert into <имя_таблицы> values (<значение1>, <значение2>, ...) "
+    "- создать запись")
     print("select from <имя_таблицы> - прочитать все записи")
-    print("select from <имя_таблицы> where <столбец> = <значение> - прочитать записи по условию")
+    print("select from <имя_таблицы> where <столбец> = <значение> "
+    "- прочитать записи по условию")
     print(
         "update <имя_таблицы> set <столбец> = <новое_значение> "
         "where <столбец> = <значение> - обновить запись"
@@ -88,7 +91,8 @@ def run():
             utils.save_table_data(table, table_data)
             utils.save_metadata(_get_meta_path(), metadata)
             print(
-                f"Запись с ID={table_data[-1]['ID']} успешно добавлена в таблицу \"{table}\"."
+                f"Запись с ID={table_data[-1]['ID']} успешно "
+                f"добавлена в таблицу \"{table}\"."
             )
 
             continue
@@ -106,7 +110,11 @@ def run():
                     # конвертируем значения к int/bool если нужно
                     for k, v in where.items():
                         col_type = next(
-                            (c["type"] for c in metadata[table]["columns"] if c["name"] == k),
+                            (
+                                c["type"]
+                                for c in metadata[table]["columns"]
+                                if c["name"] == k
+                            ),
                             "str",
                         )
                         if col_type == "int":
@@ -178,10 +186,10 @@ def run():
             if result is not None:
                 metadata = result
                 utils.save_metadata(meta_path, metadata)
-                print(
-                    f"Таблица \"{table}\" успешно создана со столбцами: "
-                    f"{', '.join([c['name'] + ':' + c['type'] for c in metadata[table]['columns']])}"
+                cols_str = ", ".join(
+                    f"{c['name']}:{c['type']}" for c in metadata[table]["columns"]
                 )
+                print(f'Таблица "{table}" успешно создана со столбцами: {cols_str}')
             continue
 
         # DROP TABLE

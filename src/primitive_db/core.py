@@ -1,11 +1,13 @@
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
 from prettytable import PrettyTable
+
 from src.decorators import (
-    handle_db_errors,
     confirm_action,
-    log_time,
     create_cacher,
+    handle_db_errors,
+    log_time,
 )
 
 select_cache = create_cacher()
