@@ -38,4 +38,3 @@ def save_table_data(table_name: str, data: List[Dict[str, Any]]) -> None:
     path = _data_path(table_name)
     with path.open("w", encoding="utf-8") as fh:
         json.dump(data, fh, ensure_ascii=False, indent=4)
-        json.dump(data, fh, ensure_ascii=False, indent=4)
